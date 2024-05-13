@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, NavLink } from '@/app/_components/Nav';
+import { Nav, NavLink } from '@/components/Nav';
 
 const AdminLayout = ({
   children,

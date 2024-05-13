@@ -1,6 +1,9 @@
 import React from 'react';
 import { Nav, NavLink } from '@/components/Nav';
 
+// remove all caching for admin pages so data is always up to date
+export const dynamic = 'force-dynamic';
+
 const AdminLayout = ({
   children,
 }: Readonly<{

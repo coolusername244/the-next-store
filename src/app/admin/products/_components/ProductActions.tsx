@@ -5,6 +5,7 @@ import {
   toggleProductAvailability,
   deleteProduct,
 } from '../../_actions/products';
+import { useRouter } from 'next/navigation';
 
 export const ActiveToggleDropdownItem = ({
   id,
@@ -14,6 +15,7 @@ export const ActiveToggleDropdownItem = ({
   isAvailable: boolean;
 }) => {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   return (
     <DropdownMenuItem
@@ -21,6 +23,7 @@ export const ActiveToggleDropdownItem = ({
       onClick={() => {
         startTransition(async () => {
           await toggleProductAvailability(id, !isAvailable);
+          router.refresh();
         });
       }}
     >
@@ -37,13 +40,16 @@ export const DeleteDropdownItem = ({
   disabled: boolean;
 }) => {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   return (
     <DropdownMenuItem
+      variant="destructive"
       disabled={disabled || isPending}
       onClick={() => {
         startTransition(async () => {
           await deleteProduct(id);
+          router.refresh();
         });
       }}
     >

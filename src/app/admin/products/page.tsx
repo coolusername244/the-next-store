@@ -17,6 +17,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -67,7 +68,7 @@ const ProductsTable = async () => {
               ) : (
                 <>
                   <span className="sr-only">Available</span>
-                  <XCircle />
+                  <XCircle className="stroke-destructive" />
                 </>
               )}
             </TableCell>
@@ -95,6 +96,7 @@ const ProductsTable = async () => {
                     id={product.id}
                     isAvailable={product.isAvailable}
                   />
+                  <DropdownMenuSeparator />
                   <DeleteDropdownItem
                     id={product.id}
                     disabled={product._count.orders > 0}

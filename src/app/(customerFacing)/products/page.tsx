@@ -1,13 +1,14 @@
 import React, { Suspense } from 'react';
 import { ProductCard, ProductCardSkeleton } from '@/components/ProductCard';
 import prisma from '@/db/db';
+import { cache } from '@/lib/cache';
 
-const getProducts = () => {
+const getProducts = cache(() => {
   return prisma.product.findMany({
     where: { isAvailable: true },
     orderBy: { name: 'asc' },
   });
-};
+}, ['/products', 'getProducts']);
 
 const ProductsSuspense = async () => {
   const products = await getProducts();

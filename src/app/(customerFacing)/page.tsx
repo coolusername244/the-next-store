@@ -15,7 +15,7 @@ type ProductGridSectionProps = {
 const getMostPopularProducts = cache(
   () => {
     return prisma.product.findMany({
-      where: { isAvailable: true },
+      where: { isAvailableForPurchase: true },
       orderBy: { orders: { _count: 'desc' } },
       take: 6,
     });
@@ -26,7 +26,7 @@ const getMostPopularProducts = cache(
 
 const getNewestProducts = cache(() => {
   return prisma.product.findMany({
-    where: { isAvailable: true },
+    where: { isAvailableForPurchase: true },
     orderBy: { createdAt: 'desc' },
     take: 6,
   });

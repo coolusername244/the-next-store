@@ -39,7 +39,7 @@ export const addProduct = async (prevState: unknown, formData: FormData) => {
 
   await prisma.product.create({
     data: {
-      isAvailable: false,
+      isAvailableForPurchase: false,
       name: data.name,
       description: data.description,
       priceInCents: data.priceInCents,
@@ -112,11 +112,11 @@ export const updateProduct = async (
 
 export const toggleProductAvailability = async (
   id: string,
-  isAvailable: boolean,
+  isAvailableForPurchase: boolean,
 ) => {
   await prisma.product.update({
     where: { id },
-    data: { isAvailable },
+    data: { isAvailableForPurchase },
   });
 
   revalidatePath('/');

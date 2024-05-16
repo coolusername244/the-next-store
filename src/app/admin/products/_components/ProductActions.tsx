@@ -9,10 +9,10 @@ import { useRouter } from 'next/navigation';
 
 export const ActiveToggleDropdownItem = ({
   id,
-  isAvailable,
+  isAvailableForPurchase,
 }: {
   id: string;
-  isAvailable: boolean;
+  isAvailableForPurchase: boolean;
 }) => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -22,12 +22,16 @@ export const ActiveToggleDropdownItem = ({
       disabled={isPending}
       onClick={() => {
         startTransition(async () => {
-          await toggleProductAvailability(id, !isAvailable);
+          await toggleProductAvailability(id, !isAvailableForPurchase);
           router.refresh();
         });
       }}
     >
-      {isPending ? 'Toggling...' : isAvailable ? 'Deactivate' : 'Activate'}
+      {isPending
+        ? 'Toggling...'
+        : isAvailableForPurchase
+        ? 'Deactivate'
+        : 'Activate'}
     </DropdownMenuItem>
   );
 };

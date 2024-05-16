@@ -5,7 +5,7 @@ import { cache } from '@/lib/cache';
 
 const getProducts = cache(() => {
   return prisma.product.findMany({
-    where: { isAvailable: true },
+    where: { isAvailableForPurchase: true },
     orderBy: { name: 'asc' },
   });
 }, ['/products', 'getProducts']);

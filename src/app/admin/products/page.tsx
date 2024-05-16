@@ -31,7 +31,7 @@ const ProductsTable = async () => {
       id: true,
       name: true,
       priceInCents: true,
-      isAvailable: true,
+      isAvailableForPurchase: true,
       _count: {
         select: { orders: true },
       },
@@ -60,7 +60,7 @@ const ProductsTable = async () => {
         {products.map(product => (
           <TableRow key={product.id}>
             <TableCell>
-              {product.isAvailable ? (
+              {product.isAvailableForPurchase ? (
                 <>
                   <span className="sr-only">Available</span>
                   <CheckCircle2 />
@@ -94,7 +94,7 @@ const ProductsTable = async () => {
                   </DropdownMenuItem>
                   <ActiveToggleDropdownItem
                     id={product.id}
-                    isAvailable={product.isAvailable}
+                    isAvailableForPurchase={product.isAvailableForPurchase}
                   />
                   <DropdownMenuSeparator />
                   <DeleteDropdownItem

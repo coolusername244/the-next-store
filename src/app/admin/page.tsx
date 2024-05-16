@@ -5,11 +5,11 @@ import { formatCurrency, formatNumber } from '@/lib/formatters';
 
 const getSalesData = async () => {
   const data = await prisma.order.aggregate({
-    _sum: { priceInCents: true },
+    _sum: { pricePaidInCents: true },
     _count: true,
   });
   return {
-    amount: (data._sum.priceInCents || 0) / 100,
+    amount: (data._sum.pricePaidInCents || 0) / 100,
     numberOfSales: data._count,
   };
 };
@@ -18,7 +18,7 @@ const getUserData = async () => {
   const [userCount, orderData] = await Promise.all([
     prisma.user.count(),
     prisma.order.aggregate({
-      _sum: { priceInCents: true },
+      _sum: { pricePaidInCents: true },
     }),
   ]);
 
@@ -27,14 +27,14 @@ const getUserData = async () => {
     averageValuePerUser:
       userCount === 0
         ? 0
-        : (orderData._sum.priceInCents || 0) / userCount / 100,
+        : (orderData._sum.pricePaidInCents || 0) / userCount / 100,
   };
 };
 
 const getProductData = async () => {
   const [activeCount, inactiveCount] = await Promise.all([
-    prisma.product.count({ where: { isAvailable: true } }),
-    prisma.product.count({ where: { isAvailable: true } }),
+    prisma.product.count({ where: { isAvailableForPurchase: true } }),
+    prisma.product.count({ where: { isAvailableForPurchase: true } }),
   ]);
 
   return { activeCount, inactiveCount };
